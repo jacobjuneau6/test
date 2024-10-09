@@ -1,5 +1,6 @@
 #include "main.h"
 #include "lemlib/api.hpp" 
+#include "auton.h"
 /**
  * A callback function for LLEMU's center button.
  *
@@ -15,6 +16,24 @@ void on_center_button() {
 		pros::lcd::clear_line(2);
 	}
 }
+/*void red_right(){
+	static bool pressed = false;
+	pressed = !pressed;
+	if (pressed) {
+		chassis.setPose(-58, -47,0);
+		chassis.follow(red_right_txt,34,1000,false,false);
+		pros::lcd::set_text(2,"RED_RIGHT");
+	}
+}
+void blue_right(){
+	static bool pressed = false;
+	pressed = !pressed;
+	if (pressed){
+		chassis.setPose(58,47,180);
+		chassis.follow(blue_right_txt,34,1000,false,true);
+		pros::lcd::set_text(3,"BLUE_RIGHT");
+	}
+}*/
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -25,10 +44,12 @@ void on_center_button() {
 void initialize() {
 	pros::lcd::initialize();
 	chassis.calibrate();
+	chassis.calibrate(true);
 	pros::lcd::set_text(1, "Hello PROS User!");
 
-	pros::lcd::register_btn1_cb(on_center_button);
-	autonomous();
+//	pros::lcd::register_btn1_cb(red_right());
+//	pros::lcd::register_btn2_cb(blue_right());
+//	autonomous();
 }
 
 /**
@@ -60,14 +81,13 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-ASSET (path2_txt);
+/*ASSET (blue_right_txt);
+ASSET (blue_left_txt);
+ASSET (red_right_txt);
+ASSET (red_right_finish_txt);
+ASSET (red_left_txt);*/
 void autonomous() {
-chassis.setPose(-160, 160,0);
-//chassis.follow(path2_txt); //This tells the robot to folow the imported path from Jerryio.com
-//chassis.moveToPose(-63.08, -11.987, 0, 4);
-//chassis.moveTo(-23.456, -23.536, 5000);
-//chassis.moveTo(-47.151, -47.43, 5000);
-
+auton();
 }
 
 /**
@@ -86,33 +106,24 @@ chassis.setPose(-160, 160,0);
 void opcontrol() {
 //	autonomous();
 while (true){
-	//	left_motors.move(master.get_analog(ANALOG_LEFT_Y));
-//		right_motors.move(master.get_analog(ANALOG_RIGHT_Y));
-		    if (master.get_digital(E_CONTROLLER_DIGITAL_L1)) {
+	if (master.get_digital(E_CONTROLLER_DIGITAL_L1)) {
       pneumatics_down();
-			}
-		    if (master.get_digital(E_CONTROLLER_DIGITAL_R1)) {
+	}
+	if (master.get_digital(E_CONTROLLER_DIGITAL_R1)) {
       pneumatics_up();
     }
-		    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
+	if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
       intakeon();
     }
-	
-		    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
+	if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
       intakeoff();
     }
-		    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
+	if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
       off();
     }
-	        int leftY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-        int rightY = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
-
-        // move the robot
-        chassis.tank(leftY, rightY);
-
-        // delay to save resources
-        pros::delay(25);
-
-
+	int leftY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+    int rightY = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+    chassis.tank(leftY, rightY);
+    pros::delay(25);
 }
 }

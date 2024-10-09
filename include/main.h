@@ -14,7 +14,7 @@
 
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
-
+//#include "auton.h"
 /**
  * If defined, some commonly used enums will have preprocessor macros which give
  * a shorter, more convenient naming pattern. If this isn't desired, simply
@@ -87,14 +87,23 @@ pros::Controller master (E_CONTROLLER_MASTER);
                               &right_motors, // right motor group
                               12.821, // 10 inch track width
                               lemlib::Omniwheel::NEW_325, // using new 3.25" omnis
-                              360, // drivetrain rpm is 360
+                              //14,
+                              601.25,
+                              //360, // drivetrain rpm is 360
                               2 // horizontal drift is 2 (for now
 							  );
 	pros::Imu imu(9);
    // imu.reset();
 	pros::Rotation rotation_sensor(-17);
-	lemlib::TrackingWheel vertical_tracking_wheel(&rotation_sensor, lemlib::Omniwheel::NEW_2, -1);
-	lemlib::OdomSensors sensors(&vertical_tracking_wheel, // vertical tracking wheel 1, set to null
+	lemlib::TrackingWheel vertical_tracking_wheel(&rotation_sensor, lemlib::Omniwheel::NEW_2, 1);
+/*	lemlib::OdomSensors sensors(vertical_tracking_wheel, // vertical tracking wheel 1, set to null
+                            nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
+                            nullptr, // horizontal tracking wheel 1
+                            nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
+                            &imu // inertial sensor
+);*/
+lemlib::OdomSensors sensors(//nullptr,
+  &vertical_tracking_wheel, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
                             nullptr, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
