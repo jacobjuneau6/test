@@ -6,7 +6,7 @@ lv_color_t colorg = lv_color_make(0, 255, 0);
      * Note that size and position are also stored as style properties
      * so lv_obj_remove_style_all will remove the set size and position too */
  //   lv_obj_remove_style_all(btn);
-    lv_obj_set_pos(btn, 0, 10);
+    lv_obj_set_pos(btn, 0, 40);
     lv_obj_set_size(btn, 90, 25);
 	lv_color_t color = lv_color_make(255, 0, 0);  // Red color
 lv_obj_set_style_bg_color(btn, color, LV_PART_MAIN);
@@ -32,7 +32,7 @@ lv_obj_set_style_bg_color(btn2, color, LV_PART_MAIN);
 
     lv_obj_t * btn3 = lv_btn_create(lv_scr_act());
     //lv_obj_remove_style_all(btn2);                      /*Remove the styles coming from the theme*/
-    lv_obj_set_pos(btn3, 390, 10);
+    lv_obj_set_pos(btn3, 390, 20);
     lv_obj_set_size(btn3, 90, 25);
 	lv_color_t colorb = lv_color_make(0, 0, 255);  // Red color
 lv_obj_set_style_bg_color(btn3, colorb, LV_PART_MAIN);

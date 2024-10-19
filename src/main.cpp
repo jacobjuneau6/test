@@ -6,7 +6,18 @@ int seli;
 //#include "setup.h"
 #include "auton.h"
 //int seli;
+//#include "match.h"
+void matchf()
+{
+    LV_IMG_DECLARE(vexb);
+    lv_obj_t * ma = lv_img_create(lv_scr_act());
+    lv_img_set_src(ma, &vexb);
+	lv_obj_set_pos(ma,95,0);
+//	lv_img_set_angle(ma, 900);
+   // lv_obj_align(ma, LV_ALIGN_CENTER, 0, 0);
+  //  lv_obj_set_size(img1, 200, 200);
 
+}
 /**
  * Create an arc which acts as a loader.
  */
@@ -49,8 +60,7 @@ void initialize() {
 	chassis.calibrate(true);
 lv_example_get_started_3();
 lv_example_img_1();
-
-auton();
+//auton();
 
 
 //	pros::lcd::register_btn1_cb(red_right());
@@ -112,7 +122,7 @@ auton();
  */
 void opcontrol() {
 //	autonomous();
-
+matchf();
 while (true){
 	if (master.get_digital(E_CONTROLLER_DIGITAL_L1)) {
       pneumatics_down();
