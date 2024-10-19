@@ -1,21 +1,23 @@
+int seli;
 #include "main.h"
+//#include "autoSelect/selection.h"
 #include "lemlib/api.hpp" 
+#include "pros/apix.h"
+//#include "setup.h"
 #include "auton.h"
+//int seli;
+
 /**
+ * Create an arc which acts as a loader.
+ */
+/*
+
  * A callback function for LLEMU's center button.
  *
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
-void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
-	} else {
-		pros::lcd::clear_line(2);
-	}
-}
+
 /*void red_right(){
 	static bool pressed = false;
 	pressed = !pressed;
@@ -42,10 +44,14 @@ void blue_right(){
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
+
 	chassis.calibrate();
 	chassis.calibrate(true);
-	pros::lcd::set_text(1, "Hello PROS User!");
+lv_example_get_started_3();
+lv_example_img_1();
+
+auton();
+
 
 //	pros::lcd::register_btn1_cb(red_right());
 //	pros::lcd::register_btn2_cb(blue_right());
@@ -88,6 +94,7 @@ ASSET (red_right_finish_txt);
 ASSET (red_left_txt);*/
 void autonomous() {
 auton();
+
 }
 
 /**
@@ -105,6 +112,7 @@ auton();
  */
 void opcontrol() {
 //	autonomous();
+
 while (true){
 	if (master.get_digital(E_CONTROLLER_DIGITAL_L1)) {
       pneumatics_down();

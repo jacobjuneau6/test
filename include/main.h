@@ -33,7 +33,7 @@
  * For instance, you can do `4_mtr = 50` to set motor 4's target velocity to 50
  */
 #define PROS_USE_LITERALS
-
+#include "pros/apix.h"
 #include "api.h"
 #include "lemlib/api.hpp" 
 /**
@@ -85,7 +85,7 @@ pros::Controller master (E_CONTROLLER_MASTER);
 	pros::MotorGroup right_motors({12, 3, 4}, pros::MotorGearset::blue);
 	lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                               &right_motors, // right motor group
-                              12.821, // 10 inch track width
+                              12.84 , // 10 inch track width
                               lemlib::Omniwheel::NEW_325, // using new 3.25" omnis
                               //14,
                               601.25,
