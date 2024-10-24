@@ -5,6 +5,7 @@ int seli;
 #include "pros/apix.h"
 //#include "setup.h"
 #include "auton.h"
+
 //int seli;
 //#include "match.h"
 void matchf()
@@ -18,35 +19,6 @@ void matchf()
   //  lv_obj_set_size(img1, 200, 200);
 
 }
-/**
- * Create an arc which acts as a loader.
- */
-/*
-
- * A callback function for LLEMU's center button.
- *
- * When this callback is fired, it will toggle line 2 of the LCD text between
- * "I was pressed!" and nothing.
- */
-
-/*void red_right(){
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		chassis.setPose(-58, -47,0);
-		chassis.follow(red_right_txt,34,1000,false,false);
-		pros::lcd::set_text(2,"RED_RIGHT");
-	}
-}
-void blue_right(){
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed){
-		chassis.setPose(58,47,180);
-		chassis.follow(blue_right_txt,34,1000,false,true);
-		pros::lcd::set_text(3,"BLUE_RIGHT");
-	}
-}*/
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
