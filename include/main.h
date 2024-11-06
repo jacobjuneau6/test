@@ -81,8 +81,8 @@ void opcontrol(void);
 //config
 //pros::Gps gps(13);
 pros::Controller master (E_CONTROLLER_MASTER);
-pros::MotorGroup left_motors({-13, -12, -11}, pros::MotorGearset::blue);
-pros::MotorGroup right_motors({1, 2, 3}, pros::MotorGearset::blue);
+pros::MotorGroup left_motors({LEFT1, LEFT2, LEFT3}, pros::MotorGearset::blue);
+pros::MotorGroup right_motors({RIGHT1, RIGHT2, RIGHT3}, pros::MotorGearset::blue);
 lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                             &right_motors, // right motor group
                             12.84 , // 10 inch track width
@@ -90,10 +90,10 @@ lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                             601.25,
                             2
 );
-pros::Imu imu(15);
-pros::adi::Encoder vertical_encoder('A', 'B');
+pros::Imu imu(IMUPORT);
+pros::adi::Encoder vertical_encoder(CONNECT1, CONNECT2);
 lemlib::TrackingWheel horizontal_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, 1);
-pros::Rotation rotation_sensor(-14);
+pros::Rotation rotation_sensor(VERTICLE);
 lemlib::TrackingWheel vertical_tracking_wheel(&rotation_sensor, lemlib::Omniwheel::NEW_275, 1);
 lemlib::OdomSensors sensors(
                             &vertical_tracking_wheel,
@@ -130,15 +130,15 @@ lemlib::Chassis chassis(drivetrain, // drivetrain settings
                         sensors // odometry sensors
 );
 //other devs
-pros::adi::DigitalOut sensor (8, false);
+pros::adi::DigitalOut sensor (CLAMP, true);
 void pneumatics_down(){
-  sensor.set_value(true);
-}
-void pneumatics_up(){
   sensor.set_value(false);
 }
-pros::Motor intake (-7, pros::v5::MotorGears::green);
-pros::Motor pull (10, pros::v5::MotorGears::blue);
+void pneumatics_up(){
+  sensor.set_value(true);
+}
+pros::Motor intake (INTAKE, pros::v5::MotorGears::blue);
+pros::Motor pull (CONVEYOR, pros::v5::MotorGears::green);
 void off(){
   pull.brake();
     intake.brake();
@@ -146,10 +146,11 @@ void off(){
  void intakeon(){
   intake.move_velocity(200);
   intake.move(127);
-  pull.move_velocity(1500);
+  pull.move_velocity(900);
   pull.move(127);
  } 
  void intakeoff(){
   intake.move_velocity(0);
   pull.move(-127);
 }
+Distance clamp(DISTANCE);

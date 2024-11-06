@@ -146,11 +146,12 @@ lv_obj_set_style_bg_color(btn4, colorb, LV_PART_MAIN);
 
 void auton(){
 //int auton = 1;
-
+int d;
+sel =4;
 pneumatics_up();
 if (sel == 1) {
 	chassis.setPose(-58, -47,90);
-	chassis.follow(red_right_txt,39,1000,false,false);
+	chassis.follow(red_right_txt,38,1000,false,false);
 } else if (sel == 2)
 {
 	chassis.setPose(58,47,0);
@@ -162,7 +163,10 @@ if (sel == 1) {
 	chassis.setPose(-58,46,0);
 	chassis.follow(red_left_txt,38,1000,false,false);
 }
-pros::delay(600);
+//pros::delay(50);
+//pneumatics_down();
+while (!clamp.get()<= 25){
+}
 pneumatics_down();
 pros::delay(2000);
 intakeon();

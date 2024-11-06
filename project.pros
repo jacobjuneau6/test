@@ -300,8 +300,9 @@
     "upload_options": {
       "icon": "clawbot",
       "slot": 3,
-      "after": "run"
+      "after": "screen",
+      "description": "main"
     },
-    "use_early_access": false
+    "use_early_access": true
   }
 }

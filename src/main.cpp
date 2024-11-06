@@ -1,3 +1,4 @@
+#include "define.h"
 int seli;
 #include "main.h"
 //#include "autoSelect/selection.h"
@@ -94,7 +95,7 @@ auton();
  */
 void opcontrol() {
 //	autonomous();
-matchf();
+//matchf();
 while (true){
 	if (master.get_digital(E_CONTROLLER_DIGITAL_L1)) {
       pneumatics_down();
