@@ -147,28 +147,38 @@ lv_obj_set_style_bg_color(btn4, colorb, LV_PART_MAIN);
 void auton(){
 //int auton = 1;
 int d;
-sel =4;
+//sel = 4;
+printf("%d\n", sel);
 pneumatics_up();
 if (sel == 1) {
-	chassis.setPose(-58, -47,90);
-	chassis.follow(red_right_txt,38,1000,false,false);
+	//chassis.tank(-127,-127);
+ //   chassis.setPose(-58, -47,90);
+	run_auton();
+    //chassis.follow(red_right_txt,38,1000,false,false);
 } else if (sel == 2)
 {
-	chassis.setPose(58,47,0);
+	chassis.setPose(58,47,270);
 	chassis.follow(blue_right_txt,38,1000,false,false);
 } else if (sel == 3) {
-	chassis.setPose(58,-46,0);
+	chassis.setPose(58,-24,270);
 	chassis.follow(blue_left_txt,38,1000,false,false);
 } else if (sel == 4) {
-	chassis.setPose(-58,46,0);
-	chassis.follow(red_left_txt,38,1000,false,false);
+	chassis.setPose(-58,24,180);
+    //chassis.moveToPoint(-10, 22, 4000,{.forwards = false});
+	chassis.follow(red_left_txt,38,10000,false,false);
 }
-//pros::delay(50);
-//pneumatics_down();
-while (!clamp.get()<= 25){
-}
+//pros::delay(870);
+//chassis.tank(0,0);s
 pneumatics_down();
+//while (!clamp.get_distance()<= 55){
+//}
+chassis.tank(-127,-127);
 pros::delay(2000);
+chassis.tank(0,0);
+//pneumatics_down();
+pull.move(-127);
+pros::delay(1000);
+
 intakeon();
 //lv_example_get_started_3();
 

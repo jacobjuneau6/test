@@ -1,6 +1,7 @@
 #include "define.h"
 int seli;
 #include "main.h"
+#include "auton_record.c"
 //#include "autoSelect/selection.h"
 #include "lemlib/api.hpp" 
 #include "pros/apix.h"
@@ -28,9 +29,13 @@ void matchf()
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-
+ring.set_led_pwm(100);
+sense.reset(true);
+//sense.calibrate();
+//imu.reset(true);
+	//chassis.calibrate();
 	chassis.calibrate();
-	chassis.calibrate(true);
+
 lv_example_get_started_3();
 lv_example_img_1();
 //auton();
@@ -97,6 +102,12 @@ void opcontrol() {
 //	autonomous();
 //matchf();
 while (true){
+  if (master.get_digital(E_CONTROLLER_DIGITAL_L2)){
+    lineup();
+  }
+  if (master.get_digital(E_CONTROLLER_DIGITAL_R2)){
+    outtake();
+  }
 	if (master.get_digital(E_CONTROLLER_DIGITAL_L1)) {
       pneumatics_down();
 	}
@@ -115,6 +126,47 @@ while (true){
 	int leftY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
     int rightY = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
     chassis.tank(leftY, rightY);
-    pros::delay(25);
+    pros::delay(100);
+ /*   double hue;
+   hue = ring.get_hue();
+   int y = (int)hue;
+if (pull.get_actual_velocity() > 0){
+   if (hue < 40){
+    if (sel == 1 or sel == 4){
+    printf("true \n");
+ pull.move(127);
+// pros::delay(TIME);
+//pull.move(0);
+ } else if (sel == 2 or sel == 3){
+pull.move(127);
+//pros::delay(TIME);
+//96
+
+
+
+
+
+
+//pull.move(0);
+ }
+  } else if (hue > 195 and hue < 220){
+      if (sel == 1 or sel == 4){
+    printf("true \n");
+ pull.move(127);
+ pros::delay(TIME);
+pull.move(0);
+ } else if (sel == 2 or sel == 3){
+pull.move(127);
+pros::delay(TIME);
+pull.move(0);
+ }
+//   pull.move_velocity(0);
+  }
+}
+  // hue = 0;
+ //const char sum = (const char)hue;
+ // char c = (char)y;
+  //const char * b = &c;
+printf("Distance confidence: %d\n", clamp.get_distance());*/
 }
 }

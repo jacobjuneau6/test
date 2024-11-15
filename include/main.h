@@ -79,7 +79,7 @@ void opcontrol(void);
 
 #endif  // _PROS_MAIN_H_
 //config
-//pros::Gps gps(13);
+pros::Gps gps(13);
 pros::Controller master (E_CONTROLLER_MASTER);
 pros::MotorGroup left_motors({LEFT1, LEFT2, LEFT3}, pros::MotorGearset::blue);
 pros::MotorGroup right_motors({RIGHT1, RIGHT2, RIGHT3}, pros::MotorGearset::blue);
@@ -90,17 +90,19 @@ lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                             601.25,
                             2
 );
-pros::Imu imu(IMUPORT);
+pros::Imu sense(IMUPORT);
 pros::adi::Encoder vertical_encoder(CONNECT1, CONNECT2);
 lemlib::TrackingWheel horizontal_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_275, 1);
 pros::Rotation rotation_sensor(VERTICLE);
 lemlib::TrackingWheel vertical_tracking_wheel(&rotation_sensor, lemlib::Omniwheel::NEW_275, 1);
 lemlib::OdomSensors sensors(
                             &vertical_tracking_wheel,
+                            //nullptr,
                             nullptr,
-                            &horizontal_tracking_wheel,
                             nullptr,
-                            &imu
+                            //&horizontal_tracking_wheel,
+                            nullptr,
+                            &sense
 );
 lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
                                               0, // integral gain (kI)
@@ -153,4 +155,15 @@ void off(){
   intake.move_velocity(0);
   pull.move(-127);
 }
-Distance clamp(DISTANCE);
+Distance clamp(10);
+pros::Optical ring (OPTICAL);
+void outtake(){
+  intake.move_velocity(-127);
+}
+void lineup(){
+  chassis.tank(50,50);
+  int dist;
+  dist = clamp.get_distance();
+  while(! dist < 200){}
+  chassis.tank(0,0);
+}
