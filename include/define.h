@@ -38,3 +38,6 @@
 
 //sort time
 #define TIME 374
+
+// wall scorer
+#define STAKE 19

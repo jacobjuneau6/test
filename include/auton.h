@@ -153,7 +153,7 @@ pneumatics_up();
 if (sel == 1) {
 	//chassis.tank(-127,-127);
  //   chassis.setPose(-58, -47,90);
-	run_auton();
+	redpos();
     //chassis.follow(red_right_txt,38,1000,false,false);
 } else if (sel == 2)
 {

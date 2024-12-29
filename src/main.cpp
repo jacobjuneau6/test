@@ -1,7 +1,8 @@
 #include "define.h"
 int seli;
 #include "main.h"
-#include "auton_record.c"
+#include "red_positive.h"
+//#include "auton_record.c"
 //#include "autoSelect/selection.h"
 #include "lemlib/api.hpp" 
 #include "pros/apix.h"
@@ -31,6 +32,7 @@ void matchf()
 void initialize() {
 ring.set_led_pwm(100);
 sense.reset(true);
+stake.set_zero_position(0);
 //sense.calibrate();
 //imu.reset(true);
 	//chassis.calibrate();
@@ -101,12 +103,16 @@ auton();
 void opcontrol() {
 //	autonomous();
 //matchf();
+//loop for driver
+printf('time\n');
 while (true){
-  if (master.get_digital(E_CONTROLLER_DIGITAL_L2)){
-    lineup();
-  }
+ /* if (master.get_digital(E_CONTROLLER_DIGITAL_L2)){
+    //lineup();
+    stakeup();
+  }*/
   if (master.get_digital(E_CONTROLLER_DIGITAL_R2)){
     outtake();
+    //stakedown();
   }
 	if (master.get_digital(E_CONTROLLER_DIGITAL_L1)) {
       pneumatics_down();
@@ -122,11 +128,26 @@ while (true){
     }
 	if (master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
       off();
-    }
+  }
+  if (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
+    outtake();
+  }
+  if (master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)){
+    stake.move(0);
+  }
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+    stake.move(-50);
+  }
+  if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
+    stake.move(50);
+  }
+  if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)){
+    stake.move_absolute(-60.0, -50);
+  }
 	int leftY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
     int rightY = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
     chassis.tank(leftY, rightY);
-    pros::delay(100);
+    pros::delay(10);
  /*   double hue;
    hue = ring.get_hue();
    int y = (int)hue;

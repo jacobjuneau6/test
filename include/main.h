@@ -141,6 +141,7 @@ void pneumatics_up(){
 }
 pros::Motor intake (INTAKE, pros::v5::MotorGears::blue);
 pros::Motor pull (CONVEYOR, pros::v5::MotorGears::green);
+pros::Motor stake (11, pros::v5::MotorGears::red,pros::v5::MotorUnits::degrees);
 void off(){
   pull.brake();
     intake.brake();
@@ -166,4 +167,13 @@ void lineup(){
   dist = clamp.get_distance();
   while(! dist < 200){}
   chassis.tank(0,0);
+}
+void stakeup(){
+  stake.move(-50);
+}
+void stakedown(){
+  stake.move(50);
+}
+void hang(){
+  stake.move(127);
 }
